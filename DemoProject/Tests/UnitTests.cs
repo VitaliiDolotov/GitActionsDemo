@@ -11,7 +11,7 @@ namespace Tests
         public void SomeUnitTest()
         {
             var expectedValue = "VALUE";
-            var actualValue = "VALUE";
+            var actualValue = "VALUE_FAIL!";
 
             actualValue
                 .Should()

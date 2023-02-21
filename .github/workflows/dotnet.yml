@@ -19,8 +19,8 @@ jobs:
         dotnet-version: 6.0.x
         
     - run: 'ls ./DemoProject'
-    - name: Restore dependencies ./DemoProject/DemoProject.sln
-      run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore ./DemoProject/DemoProject.sln
     - name: Build
       run: dotnet build --no-restore
     - name: Test

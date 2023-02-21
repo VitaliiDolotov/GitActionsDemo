@@ -12,6 +12,9 @@ jobs:
   demo_job:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DemoProject
 
     steps:
     - uses: actions/checkout@v3
@@ -21,13 +24,15 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore dependencies
-      run: dotnet restore ./DemoProject/DemoProject.sln
+      run: dotnet restore ./DemoProject.sln
       
     - name: Build
-      run: dotnet build ./DemoProject/DemoProject.sln --no-restore
+      run: dotnet build ./DemoProject.sln --no-restore
       
     - name: Unit Tests
-      run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory=OnBuild" --no-build --verbosity normal
+      id: UnitTests
+      run: dotnet test ./DemoProject.sln --filter "TestCategory=OnBuild" --no-build --verbosity normal
 
     - name: Backend Tests
-      run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory!=OnBuild" --no-build --verbosity normal
+      if: steps.UnitTests.outcome != 'success' && failure()
+      run: dotnet test ./DemoProject.sln --filter "TestCategory!=OnBuild" --no-build --verbosity normal

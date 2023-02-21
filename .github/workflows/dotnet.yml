@@ -31,5 +31,5 @@ jobs:
       run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory=OnBuild" --no-build --verbosity normal
 
     - name: Backend Tests
-      if: steps.UnitTests.outcome == 'success' && failure()
+      if: steps.UnitTests.outcome != 'success'
       run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory!=OnBuild" --no-build --verbosity normal

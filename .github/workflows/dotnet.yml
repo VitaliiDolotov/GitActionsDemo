@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - run: 'ls'
+    - run: 'ls ./DemoProject'
     - name: Restore dependencies ./DemoProject/DemoProject.sln
       run: dotnet restore
     - name: Build

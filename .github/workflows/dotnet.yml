@@ -5,6 +5,8 @@ name: .NET
 
 on:
   pull_request:
+      paths:
+      - 'DemoProject/**'
 
 jobs:
   demo_job:
@@ -18,10 +20,14 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - run: 'ls'
-    - name: Restore dependencies ./DemoProject/DemoProject.sln
-      run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore ./DemoProject/DemoProject.sln
+      
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test ./DemoProject/DemoProject.sln --no-build --verbosity normal
+      run: dotnet build ./DemoProject/DemoProject.sln --no-restore
+      
+    - name: Unit Tests
+      run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory=OnBuild" --no-build --verbosity normal
+
+    - name: Backend Tests
+      run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory!=OnBuild" --no-build --verbosity normal

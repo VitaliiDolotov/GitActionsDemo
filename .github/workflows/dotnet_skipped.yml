@@ -15,4 +15,3 @@ jobs:
 
     steps:
       - run: 'echo "No tests execution required"'
-

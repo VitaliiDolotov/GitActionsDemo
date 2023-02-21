@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+        
+    - run: 'ls'
     - name: Restore dependencies ./DemoProject/DemoProject.sln
       run: dotnet restore
     - name: Build

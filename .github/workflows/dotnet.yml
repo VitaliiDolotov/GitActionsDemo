@@ -5,6 +5,8 @@ name: .NET
 
 on:
   pull_request:
+      paths:
+      - 'DemoProject/**'
 
 jobs:
   demo_job:

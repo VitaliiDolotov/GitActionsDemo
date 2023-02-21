@@ -8,8 +8,8 @@ namespace BackTests
     internal class BackendTests
     {
         [Test]
-        [CategoryAttribute("OnBuild")]
-        public void SomeUnitTest()
+        [CategoryAttribute("GreenTest")]
+        public void SuccessCase()
         {
             var client = new RestClient("https://gorest.co.in/public/v2/");
             var request = new RestRequest("posts");
@@ -19,6 +19,20 @@ namespace BackTests
                 .StatusCode
                 .Should()
                 .Be(HttpStatusCode.OK);
+        }
+
+        [Test]
+        [CategoryAttribute("RedTest")]
+        public void UnsuccessCase()
+        {
+            var client = new RestClient("https://gorest.co.in/public/v2/");
+            var request = new RestRequest("posts");
+            var response = client.Get(request);
+
+            response
+                .StatusCode
+                .Should()
+                .Be(HttpStatusCode.Created);
         }
     }
 }

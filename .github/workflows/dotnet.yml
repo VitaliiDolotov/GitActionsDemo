@@ -27,7 +27,9 @@ jobs:
       run: dotnet build ./DemoProject/DemoProject.sln --no-restore
       
     - name: Unit Tests
+      id: UnitTests
       run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory=OnBuild" --no-build --verbosity normal
 
     - name: Backend Tests
+      if: always()
       run: dotnet test ./DemoProject/DemoProject.sln --filter "TestCategory!=OnBuild" --no-build --verbosity normal
